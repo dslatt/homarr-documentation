@@ -54,32 +54,37 @@ Getting an API token to use the Proxmox integration is a bit more complicated th
 1. Navigate to the Proxmox portal, click on Datacenter
 2. Expand Permissions, click on Groups
 3. Click the Create button
-4. Name the group something informative, like api-users
+4. Name the group something informative, like api-users <br/>
+![](img/hardware/proxmox/group-creation.png)
 5. Click on the Permissions "folder"
 6. Click Add -> Group Permission
     * Path: /
     * Group: group from Step 4 above
     * Role: PVEAuditor
-    * Propagate: Checked
+    * Propagate: Checked <br/>
+![](img/hardware/proxmox/group-permission.png)
 7. Expand Permissions, click on Users
 8. Click the Add button
     * User name: something informative like api
     * Realm: Linux PAM standard authentication
-    * Group: group from Step 4 above
+    * Group: group from Step 4 above <br/>
+![](img/hardware/proxmox/user-creation.png)
 9. Expand Permissions, click on API Tokens
 10. Click the Add button
     * User: user from Step 8 above
     * Token ID: something informative like the application or purpose like homarr
-    * Privilege Separation: Checked
+    * Privilege Separation: Checked <br/>
+![](img/hardware/proxmox/token-creation.png)
 11. Copy the Secret that is shown in Step 10 because it is only shown once
 12. Go back to the "Permissions" menu
 13. Click Add -> API Token Permission
     * Path: /
     * API Token: select the API token created in Step 10
     * Role: PVE Auditor
-    * Propagate: Checked
+    * Propagate: Checked <br/>
+![](img/hardware/proxmox/token-permission.png)
 
-Using the User, Token ID, and Secret created above you need to format your API token as follows:
+Using the User, Token ID, and Secret created above you need to format your API token as follows. This token is used to setup the Proxmox integration.
 
 ```
 <User>@pam!<Token ID>=<Secret>
@@ -93,3 +98,6 @@ For example, the following settings will create the string:
 ```
 api@pam!homarr=eef235db-f891-4327-b84e-32bd48b7d0fd
 ```
+
+Please be sure you have added the **'PVEAuditor'** permission to both your group and API token otherwise the integration will not work correctly. There should be two entries under the Permissions folder. <br/>
+![](img/hardware/proxmox/permissions.png)
